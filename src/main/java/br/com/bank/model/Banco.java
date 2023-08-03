@@ -1,9 +1,9 @@
 package br.com.bank.model;
 
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -15,19 +15,24 @@ public class Banco {
         this.nome = nome;
     }
 
-    private List<Conta> contas = new ArrayList<>();
+    private Map<String, Conta> contas = new HashMap<>();
 
     public void adicionarConta(Conta conta) {
-        contas.add(conta);
-    }
-    public Conta pesquisarContaDoCliente(String cpf) {
-        Conta c = null;
-        for (int i = 0; i < contas.size(); i++) {
-            if (contas.get(i).getCpf().equals(cpf)) {
-                c = contas.get(i);
-            }
+        final String cpf = conta.getCpf();
+
+        if (contas.containsKey(cpf)) {
+            throw new RuntimeException("Conta para o CPF desejado já existe");
         }
-        return c;
+
+        contas.put(cpf, conta);
+    }
+
+    public Conta pesquisarContaDoCliente(String cpf) {
+        if (!contas.containsKey(cpf)) {
+            return null;
+        }
+
+        return contas.get(cpf);
     }
 
     public List<Conta> listarContasAltaRenda() {
@@ -35,6 +40,9 @@ public class Banco {
     }
 
     private List<Conta> filtrarContas(Predicate<Conta> filtro) {
-        return contas.stream().filter(filtro).collect(Collectors.toList());
+        return contas.values()
+                .stream()
+                .filter(filtro)
+                .collect(Collectors.toList());
     }
 }
