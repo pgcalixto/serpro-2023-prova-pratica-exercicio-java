@@ -1,7 +1,5 @@
 package br.com.bank;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -27,23 +25,14 @@ public class CaminhoArquivo {
     }
 
     public static CaminhoArquivo getInstance(Integer id) {
-        String b = "/tmp/";
-        String d = null;
-        if (id <= 1000) {
-            d = b + id;
-        } else {
-            int i = id;
-            boolean f = true;
-            while (f) {
-                if (id <= (i * 1000)) {
-                    d = b + i;
-                    f = false;
-                }
-                i++;
-            }
-        }
-        return new CaminhoArquivo(Paths.get(d), Paths.get(d));
+        int idDiretorio = (id - 1) / 1000 + 1;
 
+        String diretorio = "/tmp/" + idDiretorio;
+
+        Path caminhoDiretorio = Paths.get(diretorio);
+        Path caminhoArquivo = Paths.get(diretorio + "/" + id);
+
+        return new CaminhoArquivo(caminhoDiretorio, caminhoArquivo);
     }
 
 }
