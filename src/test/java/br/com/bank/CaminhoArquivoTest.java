@@ -38,4 +38,12 @@ class CaminhoArquivoTest {
 
     }
 
+    @Test
+    public void deve_montar_caminhos_nulos_se_id_eh_nulo() {
+
+        CaminhoArquivo caminhoArquivo = CaminhoArquivo.getInstance(null);
+        assertEquals(null, caminhoArquivo.getDiretorio());
+        assertEquals(null, caminhoArquivo.getArquivo());
+    }
+
 }

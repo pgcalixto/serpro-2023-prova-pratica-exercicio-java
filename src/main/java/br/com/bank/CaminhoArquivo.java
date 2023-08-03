@@ -25,6 +25,10 @@ public class CaminhoArquivo {
     }
 
     public static CaminhoArquivo getInstance(Integer id) {
+        if (id == null) {
+            return new CaminhoArquivo(null, null);
+        }
+
         int idDiretorio = (id - 1) / 1000 + 1;
 
         String diretorio = "/tmp/" + idDiretorio;
