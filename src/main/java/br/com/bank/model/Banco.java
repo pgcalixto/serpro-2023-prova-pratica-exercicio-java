@@ -17,6 +17,10 @@ public class Banco {
 
     private Map<String, Conta> contas = new HashMap<>();
 
+    public String getNome() {
+        return this.nome;
+    }
+
     public void adicionarConta(Conta conta) {
         final String cpf = conta.getCpf();
 

@@ -6,4 +6,10 @@ import br.com.bank.model.Banco;
 
 public class BacenStub extends Bacen {
 
+    @Override
+    public long cadastrarBanco(Banco banco) {
+        System.out.println("Banco " + banco.getNome() + " cadastrado");
+
+        return 0L;
+    }
 }
